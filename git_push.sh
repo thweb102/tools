@@ -14,16 +14,17 @@ git remote -v | grep push
 
 
 echo ""
-echo "------------------------------------------"
-if [[ -n "$1" && "$1" == "-y" ]]; then
-  confirm="y"
-else 
-  read -p "Push to all remotes? (y/n): " confirm
-  if [[ $confirm != "y" && $confirm != "Y" ]]; then
-      echo "Push cancelled"
-      exit 0
-  fi
-fi
+echo "-----------------"
+echo "Auto-confirm mode"
+echo "-----------------"
+
+echo "Press ENTER 2 times to confirm (or any key to cancel):"
+for i in 1 2; do
+  read -n 1 -s key
+  [[ -n "$key" ]] && echo "Cancelled" && exit 0
+  echo "$i/2"
+done
+echo "Confirmed!"
 
 
 echo ""
